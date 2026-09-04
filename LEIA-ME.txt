@@ -1,0 +1,132 @@
+===================================================================
+GUIA COMPLETO — ÍRIS-IA (do zero até funcionar no tablet)
+===================================================================
+Ninguém do grupo precisa saber programar. Sigam a ordem exata.
+
+
+PARTE 1 — CRIAR O BANCO DE DADOS (FIREBASE) — 10 min
+-------------------------------------------------------------------
+1. Entrem em https://console.firebase.google.com com uma conta Google.
+2. Cliquem em "Criar projeto" (ou "Add project"). Deem um nome, ex.
+   "aracno-ia". Podem desativar o Google Analytics (não é necessário).
+3. Depois que o projeto abrir, no menu esquerdo cliquem em
+   "Compilação" (Build) -> "Firestore Database".
+4. Cliquem em "Criar banco de dados". Escolham "Iniciar no modo de
+   teste" (test mode) e a região mais próxima (ex. southamerica-east1).
+   Isso deixa o banco aberto por 30 dias — suficiente para o projeto.
+5. Voltem à tela inicial do projeto (ícone de casa) e cliquem no
+   ícone "</>" para adicionar um "app da Web". Deem um apelido
+   (ex. "aracno-web") e cliquem em "Registrar app".
+6. Vai aparecer um bloco de código chamado firebaseConfig, mais ou
+   menos assim:
+
+     const firebaseConfig = {
+       apiKey: "AIzaSy...",
+       authDomain: "aracno-ia.firebaseapp.com",
+       projectId: "aracno-ia",
+       storageBucket: "aracno-ia.appspot.com",
+       messagingSenderId: "123456789",
+       appId: "1:123456789:web:abcdef"
+     };
+
+   Copiem esses valores para dentro do arquivo config.js (que já
+   está pronto), na parte FIREBASE_CONFIG.
+
+
+PARTE 2 — CRIAR A CHAVE DA IA (GEMINI) — 3 min
+-------------------------------------------------------------------
+1. Entrem em https://aistudio.google.com/apikey (mesma conta Google).
+2. Cliquem em "Create API key" (ou "Criar chave de API").
+3. Copiem a chave gerada e colem no config.js, na linha
+   GEMINI_API_KEY, no lugar de "COLE_AQUI_SUA_CHAVE_GEMINI".
+   IMPORTANTE: não postem essa chave publicamente (ex. GitHub
+   público) depois da feira, para evitar uso indevido por terceiros.
+
+
+PARTE 3 — PREENCHER OS DADOS DO GRUPO E A PERSONALIDADE — 5 min
+-------------------------------------------------------------------
+1. Abram o config.js num editor de texto simples (Bloco de Notas
+   já serve).
+2. Em GRUPO_INFO, troquem escola, série e os nomes dos integrantes.
+3. Em PERSONALIDADE, leiam o texto e ajustem o tom se quiserem
+   (mais engraçada, mais séria, etc.) — é só editar as frases.
+4. Salvem o arquivo.
+
+
+PARTE 4 — TESTAR NO COMPUTADOR (antes de mexer no tablet) — 5 min
+-------------------------------------------------------------------
+1. Localizem a pasta "aracno-ia" com os arquivos:
+   index.html, style.css, app.js, config.js
+2. Deem dois cliques no index.html — ele abre no navegador
+   (Chrome/Firefox/Edge).
+3. Digitem uma mensagem e cliquem em Enviar.
+   - Se aparecer erro de Firebase: revisem o FIREBASE_CONFIG.
+   - Se aparecer erro da API do Gemini: revisem a GEMINI_API_KEY e
+     confirmem que ativaram a "Generative Language API" (o próprio
+     AI Studio já ativa isso ao criar a chave).
+4. Cliquem no "⋮" no canto superior direito para ver o painel de
+   "Registro": informações do grupo e anotações salvas. Testem
+   escrever uma anotação nova e ver se ela aparece.
+5. Fechem o navegador, abram o index.html de novo: a conversa e as
+   anotações devem continuar lá — isso é a memória funcionando.
+
+Se tudo isso funcionou, a parte difícil já está pronta. O que falta
+é só "empacotar" essa página como um app do tablet.
+
+
+PARTE 5 — TRANSFORMAR EM APP DO TABLET (ANDROID 5.1.1)
+-------------------------------------------------------------------
+Existem dois caminhos. Recomendo o Caminho A por ser bem mais simples
+para quem nunca usou Android Studio.
+
+  CAMINHO A — Hospedar a página e abrir em modo "tela cheia" (fácil)
+  ---------------------------------------------------------------
+  1. Criem uma conta gratuita em https://github.com (se não tiverem).
+  2. Criem um repositório novo, público, chamado por exemplo
+     "aracno-ia", e enviem os 4 arquivos (index.html, style.css,
+     app.js, config.js) para dentro dele (o próprio site do GitHub
+     tem um botão "Add file" -> "Upload files" — não precisa usar
+     linha de comando).
+  3. No repositório, vão em "Settings" -> "Pages" -> em "Source"
+     escolham a branch "main" e salvem. Depois de 1-2 minutos, o
+     GitHub mostra um link tipo:
+     https://SEUUSUARIO.github.io/aracno-ia/
+  4. No tablet Android 5.1.1, abram esse link no Chrome.
+  5. Toquem nos três pontinhos do Chrome -> "Adicionar à tela
+     inicial". Isso cria um ícone que abre a Íris-IA em tela
+     cheia, como se fosse um app de verdade — sem precisar
+     compilar nada.
+  ATENÇÃO: como o repositório é público, NÃO deixem sua chave do
+  Gemini real nesses arquivos se for público. Alternativa: criem o
+  repositório como privado e usem o GitHub Pages de repositório
+  privado (disponível em contas Pro) OU, mais simples, troquem a
+  chave por uma nova assim que a feira terminar.
+
+  CAMINHO B — App Android "de verdade" com Android Studio (mais
+  trabalhoso, mas gera um .apk instalável)
+  ---------------------------------------------------------------
+  Me avisem que eu preparo os arquivos prontos do projeto Android
+  (MainActivity, AndroidManifest, etc.) — vocês só precisam instalar
+  o Android Studio, importar o projeto e clicar em "Run".
+
+
+SOBRE A VOZ (falar e ouvir)
+-------------------------------------------------------------------
+- O botão 🎤 ao lado da caixa de texto ativa o microfone: fale a
+  pergunta e ela é enviada automaticamente assim que reconhecida.
+- O botão 🔊 no topo liga/desliga a resposta falada em voz alta
+  (útil para desligar se estiver muito barulhento na feira).
+- Isso usa um recurso do próprio navegador (não precisa de outra
+  chave nem custa nada), e funciona melhor no Google Chrome.
+  Precisa de internet e de permissão de microfone (o navegador
+  pergunta na primeira vez).
+
+
+DÚVIDAS COMUNS
+-------------------------------------------------------------------
+- "Erro de permissão no Firestore": revisem se escolheram "modo de
+  teste" na Parte 1, passo 4. Esse modo expira em 30 dias.
+- "A IA não lembra de nada": confirmem que o FIREBASE_CONFIG está
+  correto e que o navegador tem internet.
+- "Quero mudar o visual (cores, fontes)": tudo isso está no arquivo
+  style.css, com comentários explicando cada parte.
