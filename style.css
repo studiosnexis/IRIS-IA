@@ -1,0 +1,286 @@
+/* ===== paleta =====
+  ink:        #0F1115  fundo
+  panel:      #171A21  painéis
+  silver:     #C9D2DC  texto principal
+  muted:      #7C8896  texto secundário
+  crimson:    #D7263D  acento / IA
+  amber:      #FFB100  "pensando" / destaque
+*/
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #0F1115;
+  color: #C9D2DC;
+  font-family: 'Inter', -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+.frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* topo */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #C9D2DC;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #D7263D;
+  box-shadow: 0 0 0 0 rgba(215, 38, 61, 0.5);
+}
+
+.dot.thinking {
+  background: #FFB100;
+  animation: pulse 1.1s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 177, 0, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 177, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 177, 0, 0); }
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #7C8896;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+}
+.icon-btn:hover { color: #C9D2DC; }
+.icon-btn.off { opacity: 0.4; }
+
+.mic-btn {
+  background: #171A21;
+  border: 1px solid #262B35;
+  border-radius: 4px;
+  color: #C9D2DC;
+  font-size: 16px;
+  width: 44px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.mic-btn.gravando {
+  border-color: #FFB100;
+  animation: pulse 1.1s infinite;
+}
+.mic-btn.ligado {
+  border-color: #D7263D;
+  background: #241417;
+  color: #FF6B7D;
+}
+
+.web-line {
+  width: 100%;
+  height: 2px;
+  flex-shrink: 0;
+}
+.web-line line {
+  stroke: #D7263D;
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+/* conversa */
+.chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.msg.ia {
+  align-self: flex-start;
+  background: #171A21;
+  border-left: 2px solid #D7263D;
+  color: #C9D2DC;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: #1D2129;
+  border-right: 2px solid #FFB100;
+  color: #E8ECF1;
+}
+
+.msg .autor {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: #7C8896;
+  margin-bottom: 4px;
+}
+
+/* entrada */
+.composer {
+  flex-shrink: 0;
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px 18px;
+}
+
+.composer input {
+  flex: 1;
+  background: #171A21;
+  border: 1px solid #262B35;
+  border-radius: 4px;
+  padding: 12px 14px;
+  color: #E8ECF1;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+}
+.composer input:focus {
+  outline: none;
+  border-color: #D7263D;
+}
+
+.composer button {
+  background: #D7263D;
+  color: #0F1115;
+  border: none;
+  border-radius: 4px;
+  padding: 0 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.composer button:disabled {
+  opacity: 0.5;
+}
+
+/* painel lateral */
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(320px, 84vw);
+  background: #12141A;
+  border-left: 1px solid #262B35;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  z-index: 5;
+}
+.panel.open { transform: translateX(0); }
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.panel-head h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+
+.panel-section {
+  margin-top: 18px;
+  overflow-y: auto;
+}
+.panel-section h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: #7C8896;
+  margin: 0 0 8px;
+}
+
+.muted { color: #7C8896; font-size: 13px; line-height: 1.5; }
+
+.notas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.nota-item {
+  background: #171A21;
+  border-left: 2px solid #FFB100;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #C9D2DC;
+}
+
+.nota-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.nota-form textarea {
+  background: #171A21;
+  border: 1px solid #262B35;
+  border-radius: 4px;
+  color: #E8ECF1;
+  padding: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  resize: none;
+}
+.nota-form button {
+  align-self: flex-end;
+  background: none;
+  border: 1px solid #D7263D;
+  color: #D7263D;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+}
